@@ -29,6 +29,29 @@
   .era{display:flex;align-items:baseline;gap:12px;padding:40px 0 8px}.dot{width:7px;height:7px;border-radius:50%;background:var(--accent);transform:translateY(-1px);flex:0 0 auto}.job{padding:24px 0 28px;border-bottom:1px solid #EFEBE3;display:flex;flex-direction:column;gap:14px}.job:last-child{border-bottom:0}.job-top{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px}.job h4{font-size:17px;font-weight:600;letter-spacing:-.01em}.date{margin-left:auto;font-size:12.5px;color:var(--soft);white-space:nowrap}.job p{font-size:15.5px;line-height:1.7;color:#55504A;max-width:62ch;text-wrap:pretty}
   .edu-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 16px;padding:18px 0;border-bottom:1px solid #EFEBE3}.edu-row:last-child{border-bottom:0}.langs{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:20px}.closing{padding-top:116px;padding-bottom:96px}.closing p{font-style:italic;font-weight:400;font-size:clamp(23px,4vw,29px);line-height:1.45;text-wrap:balance}.closing-link{color:var(--accent);text-decoration:none;border-bottom:1.5px solid #E0CFC6;padding-bottom:1px}.closing-link:hover{border-bottom-color:var(--accent)}footer{border-top:1px solid #EFEBE3}footer p{padding-top:36px;padding-bottom:64px;font-size:12px;line-height:1.8;color:var(--soft)}
   @media(max-width:760px){.fit-grid,.project-card{grid-template-columns:1fr}.metric-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:600px){header{padding-top:64px}.hero-row{grid-template-columns:1fr 96px;gap:20px;align-items:start}.portrait{width:96px;height:96px;border-radius:10px}.nav .spacer{display:none}.fit-card,.project-card{padding:24px}.metric-grid{grid-template-columns:1fr 1fr}}@media print{.section{padding-top:48px}.btn{border:0;padding:0}.nav{gap:10px 20px}.project-card,.fit-card{box-shadow:none}}
+
+/* Dedicated static A4 export styling. The original font stack remains unchanged. */
+@page { size: A4; margin: 10mm 11mm 12mm; }
+@media print {
+  html, body { background: #FBFAF8 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  * { animation: none !important; transition: none !important; }
+  .wrap { max-width: none !important; margin-left: 0 !important; margin-right: 0 !important; }
+  header.wrap { padding-top: 0 !important; }
+  .section { padding-top: 18px !important; }
+  .topline { margin-bottom: 14px !important; }
+  .hero-row { gap: 20px !important; }
+  .portrait { width: 108px !important; height: 108px !important; }
+  .nav { padding-top: 4px !important; gap: 7px 16px !important; }
+  .btn-dark, .caret { display: none !important; }
+  .fit-card, .project-card, .metric, article { break-inside: avoid; page-break-inside: avoid; }
+  section:has(.fit-card), section:has(.project-card) { break-inside: avoid; page-break-inside: avoid; }
+  .fit-grid { gap: 10px !important; }
+  .metric-grid { gap: 6px !important; }
+  .metric { padding: 9px 8px !important; }
+  .metric strong { font-size: 21px !important; }
+  .closing { padding-bottom: 0 !important; }
+  a { color: inherit !important; text-decoration: none !important; }
+}
 </style>
 </head>
 <body>
@@ -131,16 +154,5 @@
 <section data-reveal class="wrap closing"><p class="serif">The person who keeps the details in order, so artists, collaborators and teams are free to do their best work. <a class="closing-link" href="mailto:gkoupidis@gmail.com">Get in touch.</a></p></section>
 <footer><p class="wrap mono">Ioannis Koupidis&nbsp;&nbsp;·&nbsp;&nbsp;Set in Fraunces, Inter &amp; IBM Plex Mono</p></footer>
 </main>
-<script>
-(function(){
-  document.documentElement.classList.add('js');
-  var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;if(reduced)document.documentElement.classList.add('reduced-motion');
-  var words=['people.','projects.','budgets.','creative work.'];
-  var wordIndex=0,phase='hold';
-  if(!reduced){var step=function(){var role=document.getElementById('role-word');if(!role){setTimeout(step,500);return}var cur=role.textContent,delay=70;if(phase==='hold'){phase='deleting';delay=2400}else if(phase==='deleting'){if(cur.length>0){role.textContent=cur.slice(0,-1);delay=45}else{wordIndex=(wordIndex+1)%words.length;phase='typing';delay=420}}else{var next=words[wordIndex];if(cur.length<next.length){role.textContent=next.slice(0,cur.length+1);delay=75}else{phase='hold';delay=0}}setTimeout(step,delay)};setTimeout(step,1200)}
-  if(!reduced){var els=[].slice.call(document.querySelectorAll('[data-reveal]'));var pending=new Set(els);var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-visible');pending.delete(e.target);io.unobserve(e.target)}})},{rootMargin:'0px 0px -6% 0px',threshold:.05});els.forEach(function(el){io.observe(el)});}
-})();
-</script>
 </body>
 </html>
-
